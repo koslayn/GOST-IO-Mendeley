@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never">
+  <info>
+    <title>GOST-IO-Mendeley</title>
+    <id>http://www.zotero.org/styles/gost-io-mendeley</id>
+    <link rel="self" href="http://www.zotero.org/styles/gost-io-mendeley"/>
+    <author>
+      <name>Ivanov Oleg</name>
+    </author>
+    <summary>Упрощённый ГОСТ. Создан для оформления публикаций и диссертации. В разработке с 20-06-2020</summary>
+    <updated>2020-06-20T17:30:51+00:00</updated>
+  </info>
+  <macro name="IF-ELSE - Accesed">
+    <choose>
+      <if match="any" variable="accessed">
+        <date delimiter="." variable="accessed" prefix="(дата обращения: " suffix="16.03.2017)">
+          <date-part name="day"/>
+          <date-part name="month"/>
+          <date-part name="year"/>
+        </date>
+      </if>
+      <else>
+        <text value="❗Дата обращения обязательна❗"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="Warnings">
+    <text value="❗Данный тип документа не поддерживается❗"/>
+  </macro>
+  <citation>
+    <layout>
+      <text variable="citation-number" suffix=". "/>
+    </layout>
+  </citation>
+  <bibliography>
+    <layout>
+      <choose>
+        <if type="legislation" match="any">
+          <text variable="publisher"/>
+          <text variable="title" prefix="«" suffix="»"/>
+          <text variable="source" prefix="// " suffix=" [Электронный ресурс]"/>
+          <text macro="IF-ELSE - Accesed"/>
+        </if>
+        <else-if type="webpage" match="any">
+          <text variable="title"/>
+          <text variable="genre"/>
+          <text variable="authority"/>
+          <text variable="URL" prefix=". – Режим доступа: "/>
+          <text macro="IF-ELSE - Accesed"/>
+        </else-if>
+        <else-if type="article article-journal article-magazine" match="any">
+          <names variable="author" suffix=" ">
+            <name et-al-min="1" et-al-use-first="1" initialize-with=". " name-as-sort-order="first" sort-separator=""/>
+          </names>
+          <text variable="title"/>
+          <names variable="author" prefix=" / ">
+            <label form="short" suffix="."/>
+            <name initialize-with="."/>
+          </names>
+          <text variable="title" prefix=" // "/>
+          <date date-parts="year" form="text" variable="issued">
+            <date-part name="year" prefix=". – "/>
+          </date>
+          <text variable="volume" prefix=". –  Т. "/>
+          <text variable="issue" prefix=". – № "/>
+          <text variable="page" prefix=". – С. "/>
+        </else-if>
+        <else>
+          <text macro="Warnings"/>
+        </else>
+      </choose>
+    </layout>
+  </bibliography>
+</style>
